@@ -1,0 +1,11 @@
+[package]
+name = "vec-bench"
+version = "0.1.0"
+authors = ["Stu Hood <stuhood@twitter.com>"]
+
+[dependencies]
+bencher = "0.1.4"
+
+[[bench]]
+name = "vec"
+harness = false
