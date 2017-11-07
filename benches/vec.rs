@@ -33,6 +33,16 @@ fn collect(ratio: u8, chars: &[char]) -> Vec<char> {
     }).collect()
 }
 
+fn push(ratio: u8, chars: &[char]) -> Vec<char> {
+    let mut res = Vec::with_capacity(chars.len());
+    for (i, c) in chars.iter().enumerate() {
+        if filter(ratio, i) {
+            res.push(*c);
+        }
+    }
+    res
+}
+
 macro_rules! bench_gen {
     ($bench_name: ident, $inner: ident, $len: expr, $ratio: expr) => {
         fn $bench_name(b: &mut Bencher) {
@@ -54,6 +64,12 @@ bench_gen!(extend_16_2, extend, 16, 2);
 bench_gen!(extend_16_4, extend, 16, 4);
 bench_gen!(extend_32_2, extend, 32, 2);
 bench_gen!(extend_32_4, extend, 32, 4);
+bench_gen!(push_08_2, push, 8, 2);
+bench_gen!(push_08_4, push, 8, 4);
+bench_gen!(push_16_2, push, 16, 2);
+bench_gen!(push_16_4, push, 16, 4);
+bench_gen!(push_32_2, push, 32, 2);
+bench_gen!(push_32_4, push, 32, 4);
 
 benchmark_group!(
     benches,
@@ -68,6 +84,12 @@ benchmark_group!(
     extend_16_2,
     extend_16_4,
     extend_32_2,
-    extend_32_4
+    extend_32_4,
+    push_08_2,
+    push_08_4,
+    push_16_2,
+    push_16_4,
+    push_32_2,
+    push_32_4
 );
 benchmark_main!(benches);
